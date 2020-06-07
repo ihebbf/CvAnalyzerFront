@@ -1,0 +1,166 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-5 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Gestion des offres</h1>
+
+</div>
+
+
+<br>
+
+<!--afficher les offres d'emploi-->
+
+<div *ngIf="div1">
+<table id="news-table" class="table tablesorter mb-5 tablesorter-default tablesorterebe97d3cffd22" role="grid" aria-labelledby="tablesorterebe97d3cffd22caption">
+  <caption id="tablesorterebe97d3cffd22caption">
+Liste des offres    <a (click)="showAjout()" class="btn btn-sm btn-primary ml-3">Ajouter une offre</a>
+  </caption>
+  <thead class="cf">
+  <tr role="row" class="tablesorter-headerRow">
+    <th scope="col" class="header tablesorter-header " data-column="1" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-sort="none" aria-label="Title: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner"><span>Titre</span></div></th>
+    <th scope="col" class="header tablesorter-header " data-column="2" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-sort="none" aria-label="Date: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner"><span>Description</span></div></th>
+    <th scope="col" class="header tablesorter-header " data-column="2" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-sort="none" aria-label="Date: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner"><span>Skills</span></div></th>
+
+    <th scope="col" class="header  " data-column="3" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-label="Category: No sort applied, activate to apply an ascending sort" style="user-select: none;"><span>Date d'ajout</span>
+    <th scope="col" class="header  " data-column="6" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-label="Category: No sort applied, activate to apply an ascending sort" style="user-select: none;"><span>Etat</span>
+
+    <th scope="col" class="header tablesorter-header  " data-column="4" role="columnheader" aria-disabled="true" unselectable="on" aria-sort="none" aria-label="Actions: No sort applied, sorting is disabled" style="user-select: none;"><div class="tablesorter-header-inner"><span>Actions</span></div></th>
+    <th scope="col" class="header tablesorter-header  " data-column="5" role="columnheader" aria-disabled="true" unselectable="on" aria-sort="none" aria-label="Actions: No sort applied, sorting is disabled" style="user-select: none;"><div class="tablesorter-header-inner"><span>Détails</span></div></th>
+  </tr>
+  </thead>
+  <tbody aria-live="polite" aria-relevant="all">
+  <tbody aria-live="polite" aria-relevant="all">
+
+  <tr role="row">
+    <td class="align-middle"><strong>Ingénieur Java</strong></td>
+    <td class="align-middle" width="100">Autonomie, rigueur et travail en équipe.
+
+      Seuls les candidats ayant une expérience avérée et vérifiée de 2 ans seront pris en compte pour les postes à pourvoir. </td>
+
+    <td class="align-middle" >
+      <select class="custom-select" >
+      <option value="AF" selected value>Afficher</option>
+      <option value="AD" disabled>Java</option>
+      <option value="AZ"disabled>JEE</option>
+
+
+    </select></td>
+    <td class="align-middle">09/06/2014</td>
+
+    <td class="align-middle">
+
+    <span class="badge badge-lg badge-danger">En cours</span>
+  </td>
+    <td>
+      <a class="icon icon-software-update" routerLink="offres"  (click)="showModif()"></a>
+
+      <a class="icon icon-Archive" routerLink="offres"  (click)="open(content1)"></a>
+    </td>
+    <td><a class="icon icon-add-more" routerLink="offres"  (click)="open(content)"></a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</div>
+
+<!--Ajouter une offre d'emploi-->
+<div *ngIf="div2">
+  <h2>Ajouter une offre</h2>
+  <div class="row">
+    <div class="col-sm-8">
+      <form #form='ngForm' (ngSubmit)="onSubmit(form)"    role="form" >
+        <div class="form-group">
+          <label for="inputName" class="is-required">Titre</label>
+          <input type="text" class="form-control" id="inputName" required="">
+        </div>
+        <div class="form-group has-warning">
+          <label for="inputEmail" class="is-required">Description</label>
+          <textarea  class="form-control" id="inputEmail"  required=""></textarea>
+        </div>
+        <div class="form-group has-warning">
+          <label for="inputexperience" class="is-required">Année d'experience</label>
+          <input type="number" class="form-control" id="inputexperience"  required="">
+        </div>
+        <div class="form-group">
+          <label  class="is-required">Skills</label>
+          <ejs-multiselect id='localData' name='name'  #local='ngModel' [(value)]='value'[(ngModel)]='value' [dataSource]='countries' [fields]='localFields' [placeholder]='localWaterMark'></ejs-multiselect>
+
+
+        </div>
+
+
+        <div class="form-group my-3">
+          <button type="submit" class="btn btn-secondary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div></div>
+
+<!--Modifier une offre d'emploi-->
+
+
+<div *ngIf="div3">
+  <h2>Modifier une offre</h2>
+  <div class="row">
+    <div class="col-sm-8">
+      <form role="form" >
+        <div class="form-group">
+          <label for="inputNamemodif" class="is-required">Titre</label>
+          <input type="text" class="form-control" id="inputNamemodif" required="">
+        </div>
+        <div class="form-group has-warning">
+          <label for="inputEmailmodif" class="is-required">Description</label>
+          <textarea  class="form-control" id="inputEmailmodif"  required=""></textarea>
+        </div>
+        <div class="form-group has-warning">
+          <label for="inputexperienceModif" class="is-required">Année d'experience</label>
+          <input type="number" class="form-control" id="inputexperienceModif"  required="">
+        </div>
+        <div class="form-group">
+          <label for="inputskillsmodif" class="is-required">Skills</label>
+          <ejs-multiselect id='inputskillsmodif' name='name'  #local='ngModel' [(value)]='value'[(ngModel)]='value' [dataSource]='countries' [fields]='localFields' [placeholder]='localWaterMark'></ejs-multiselect>
+
+        </div>
+
+
+        <div class="form-group my-3">
+          <button type="submit" class="btn btn-secondary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div></div>
+
+<!--ici le modal -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Ingénieur Java</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Description : </strong>Autonomie, rigueur et travail en équipe. Seuls les candidats ayant une expérience avérée et vérifiée de 2 ans seront pris en compte pour les postes à pourvoir. </p>
+    <p><strong>Skills : </strong>Java , Angular </p>
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+
+<!--ici le modal Suppression -->
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" >Suppression</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-danger" role="alert">Voulez-vous vraiment archiver cette offre d'emploi ?</div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.close('Close click')">Annuler</button>
+    <button type="button" class="btn btn-danger" data-ng-click="deleteUser(user._id)">Supprimer</button>
+  </div>
+</ng-template>
