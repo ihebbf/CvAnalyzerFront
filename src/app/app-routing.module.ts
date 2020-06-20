@@ -9,16 +9,26 @@ import { ChartsModule } from 'ng2-charts';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import {AuthentificationComponent} from './Components/authentification/authentification.component';
 import {InscriptionComponent} from './Components/inscription/inscription.component';
+import {AuthGuard} from './Helpers/auth.guard.ts';
+import {ProfilComponent} from './Components/profil/profil.component';
+import {ErrorComponent} from './error/error.component';
 
-const routes: Routes = [{path: 'home', component: HomeComponent},
+const routes: Routes = [{path: 'home', component: HomeComponent,canActivate:[AuthGuard],data: { roles: localStorage.getItem("isNotCollaborateur")}},
   {path: 'inscription', component: InscriptionComponent},
 
-  {path: 'cvs', component: CvsComponent},
-  {path: 'offres', component: OffresComponent,
-    runGuardsAndResolvers: 'always'},
-  {path: 'matching', component: ClassificationComponent},
+  {path: 'cvs', component: CvsComponent,canActivate:[AuthGuard]},
+  {path: 'offres', component: OffresComponent,canActivate:[AuthGuard]},
+
+  {path: 'profil', component: ProfilComponent,canActivate:[AuthGuard]},
+  {path: 'error', component: ErrorComponent,canActivate:[AuthGuard]},
+
+  {path: 'matching', component: ClassificationComponent,canActivate:[AuthGuard],data: { roles: localStorage.getItem("isNotCollaborateur")}},
   {path: 'login', component: AuthentificationComponent},
-  {path: '', component: HomeComponent}];
+  {path:'', redirectTo:'/cvs',canActivate:[AuthGuard], pathMatch: 'full'},
+  {path:'**', redirectTo:'/error',canActivate:[AuthGuard], pathMatch: 'full'}
+
+
+];
 @NgModule({
   declarations: [],
   imports: [CommonModule, RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],

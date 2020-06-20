@@ -17,6 +17,10 @@ import {DragDropDirective} from './drag-drop.directive';
 import { InscriptionComponent } from './Components/inscription/inscription.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MultiSelectAllModule} from '@syncfusion/ej2-angular-dropdowns';
+import {HttpClientModule} from '@angular/common/http';
+import {AuthGuard} from './Helpers/auth.guard.ts';
+import { ProfilComponent } from './Components/profil/profil.component';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,8 @@ import {MultiSelectAllModule} from '@syncfusion/ej2-angular-dropdowns';
     UploadFileComponent,
     DragDropDirective,
     InscriptionComponent,
+    ProfilComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,10 +44,13 @@ import {MultiSelectAllModule} from '@syncfusion/ej2-angular-dropdowns';
     ChartsModule,
     MultiSelectAllModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+
+
 
   ],
-  providers: [],
+  providers: [HttpClientModule, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

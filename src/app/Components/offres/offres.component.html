@@ -17,45 +17,35 @@ Liste des offres    <a (click)="showAjout()" class="btn btn-sm btn-primary ml-3"
   <tr role="row" class="tablesorter-headerRow">
     <th scope="col" class="header tablesorter-header " data-column="1" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-sort="none" aria-label="Title: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner"><span>Titre</span></div></th>
     <th scope="col" class="header tablesorter-header " data-column="2" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-sort="none" aria-label="Date: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner"><span>Description</span></div></th>
-    <th scope="col" class="header tablesorter-header " data-column="2" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-sort="none" aria-label="Date: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner"><span>Skills</span></div></th>
 
     <th scope="col" class="header  " data-column="3" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-label="Category: No sort applied, activate to apply an ascending sort" style="user-select: none;"><span>Date d'ajout</span>
     <th scope="col" class="header  " data-column="6" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-label="Category: No sort applied, activate to apply an ascending sort" style="user-select: none;"><span>Etat</span>
 
     <th scope="col" class="header tablesorter-header  " data-column="4" role="columnheader" aria-disabled="true" unselectable="on" aria-sort="none" aria-label="Actions: No sort applied, sorting is disabled" style="user-select: none;"><div class="tablesorter-header-inner"><span>Actions</span></div></th>
-    <th scope="col" class="header tablesorter-header  " data-column="5" role="columnheader" aria-disabled="true" unselectable="on" aria-sort="none" aria-label="Actions: No sort applied, sorting is disabled" style="user-select: none;"><div class="tablesorter-header-inner"><span>Détails</span></div></th>
   </tr>
   </thead>
   <tbody aria-live="polite" aria-relevant="all">
   <tbody aria-live="polite" aria-relevant="all">
 
   <tr role="row">
-    <td class="align-middle"><strong>Ingénieur Java</strong></td>
+    <td class="align-middle" ><a  (click)="open(content)" ngbPopover="Cliquez pour voir plus de détails" triggers="mouseenter:mouseleave"><strong>Ingénieur Java</strong></a></td>
     <td class="align-middle" width="100">Autonomie, rigueur et travail en équipe.
 
       Seuls les candidats ayant une expérience avérée et vérifiée de 2 ans seront pris en compte pour les postes à pourvoir. </td>
 
-    <td class="align-middle" >
-      <select class="custom-select" >
-      <option value="AF" selected value>Afficher</option>
-      <option value="AD" disabled>Java</option>
-      <option value="AZ"disabled>JEE</option>
 
-
-    </select></td>
     <td class="align-middle">09/06/2014</td>
 
     <td class="align-middle">
 
-    <span class="badge badge-lg badge-danger">En cours</span>
+    <span class="badge badge-lg badge-danger" popoverTitle="En cours :" ngbPopover="Aucun CV selectionné pour cette offre" triggers="mouseenter:mouseleave">En cours</span>
   </td>
     <td>
-      <a class="icon icon-software-update" routerLink="offres"  (click)="showModif()"></a>
+      <a class="icon icon-Pencil"  (click)="showModif()" ngbPopover="Cliquez ici pour modifier ce CV " triggers="mouseenter:mouseleave"></a>
 
-      <a class="icon icon-Archive" routerLink="offres"  (click)="open(content1)"></a>
+      <a class="icon icon-Archive"   (click)="open(content1)" ngbPopover="Cliquez ici pour archiver ce CV " triggers="mouseenter:mouseleave"></a>
     </td>
-    <td><a class="icon icon-add-more" routerLink="offres"  (click)="open(content)"></a>
-    </td>
+
   </tr>
   </tbody>
 </table>
@@ -121,8 +111,10 @@ Liste des offres    <a (click)="showAjout()" class="btn btn-sm btn-primary ml-3"
         </div>
 
 
-        <div class="form-group my-3">
-          <button type="submit" class="btn btn-secondary">Save</button>
+        <div class="btn-toolbar  ">
+          <button type="submit" name="cancel" (click)="showOffrePage()" class="btn btn-secondary mx-1">Annuler</button>
+
+          <button type="submit" name="submit" class="btn btn-primary ">Modifier</button>
         </div>
       </form>
     </div>
@@ -131,28 +123,34 @@ Liste des offres    <a (click)="showAjout()" class="btn btn-sm btn-primary ml-3"
 <!--ici le modal -->
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Ingénieur Java</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
+  <div class="modal-content border">
+
   <div class="modal-body">
+    <h4 class="col-12 modal-title text-center" id="modal-basic-title">Ingénieur Java</h4>
+<br>
     <p><strong>Description : </strong>Autonomie, rigueur et travail en équipe. Seuls les candidats ayant une expérience avérée et vérifiée de 2 ans seront pris en compte pour les postes à pourvoir. </p>
     <p><strong>Skills : </strong>Java , Angular </p>
+    <p><strong>Année d'experience : </strong>5 ans</p>
 
+  </div>
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modal.close('Close click')">Close</button>
   </div>
 </ng-template>
+
 
 
 <!--ici le modal Suppression -->
 <ng-template #content1 let-modal>
   <div class="modal-header">
     <h4 class="modal-title" >Suppression</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button" class="close" aria-label="Close"  (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>

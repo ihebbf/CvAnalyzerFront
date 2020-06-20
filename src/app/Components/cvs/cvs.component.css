@@ -1,5 +1,4 @@
 #scrollMe {
-  width:1200px;
-  max-width:1200px;
-  overflow-x:scroll;
+  width:800px;
+  max-width:800px;
 }

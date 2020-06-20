@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
+import {AuthentificationService} from '../../Services/authentification.service';
+import {NavigationEnd, Router} from '@angular/router';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +11,7 @@ import { Color, BaseChartDirective, Label } from 'ng2-charts';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  navigationSubscription
   public type: ChartType = 'bar';
 
   public labels: Label[] = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
@@ -47,9 +50,25 @@ export class HomeComponent implements OnInit {
   };
 
 
-  constructor() { }
+  constructor(private authService: AuthentificationService,private router:Router) {
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      // If it is a NavigationEnd event re-initalise the component
+      if (e instanceof NavigationEnd) {
+        this.ngOnInit();
+      }
+    });
+  }
 
   ngOnInit() {
+    if(localStorage.getItem('userToken')){
+    this.authService.getCurrentUser().subscribe(data => {
+
+    console.log(data)
+      },
+      (err : HttpErrorResponse)=>{
+
+      });
+    }
   }
 
 }

@@ -22,14 +22,7 @@ export class OffresComponent implements OnInit {
 
 
   constructor(  private modalService: NgbModal,private router: Router,private fb: FormBuilder) {
-    // subscribe to the router events. Store the subscription so we can
-    // unsubscribe later.
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
-      if (e instanceof NavigationEnd) {
-        this.ngOnInit();
-      }
-    });
+
     this.countries.push(
       { Name: 'Java'},
       { Name: 'Angular' }
@@ -39,10 +32,17 @@ export class OffresComponent implements OnInit {
   }
 
 
+
   ngOnInit(): void {
+    this.showOffrePage()
+  }
+  showOffrePage()
+  {
     this.div1 = true;
     this.div2 = false;
     this.div3 = false;
+
+
   }
   showAjout(){
 

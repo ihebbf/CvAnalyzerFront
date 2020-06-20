@@ -2,69 +2,87 @@
   <h1 class="h2">Gestion des CVs</h1>
 
 </div>
+<div *ngIf="div1">
 <h2>
   Importer un CV</h2>
 <app-upload-file></app-upload-file>
 <br>
 <br>
-<h2>
-  Liste des CVs</h2>
-<br>
+
+
+  <br>
 <div class="table-responsive" id="scrollMe">
   <table id="news-table" class="table tablesorter mb-5 tablesorter-default tablesorterebe97d3cffd22" role="grid" aria-labelledby="tablesorterebe97d3cffd22caption">
+    <caption id="tablesorterebe97d3cffd22caption">
+      Liste des CVs    <a  class="icon icon-reload ml-3" (click)="reloadCom()" ngbPopover="Actualiser la liste des CVs" triggers="mouseenter:mouseleave"></a>
+    </caption>
 
     <thead class="cf">
     <tr role="row" class="tablesorter-headerRow">
       <th scope="col" class="header tablesorter-header " data-column="1" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-sort="none" aria-label="Title: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner"><span>Nom & Prenom</span></div></th>
-      <th scope="col" class="header tablesorter-header " data-column="2" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-sort="none" aria-label="Date: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner"><span>Email</span></div></th>
-      <th scope="col" class="header tablesorter-header " data-column="2" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-sort="none" aria-label="Date: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner"><span>Skills</span></div></th>
-      <th scope="col" class="header tablesorter-header " data-column="2" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-sort="none" aria-label="Date: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner"><span>Langues</span></div></th>
 
       <th scope="col" class="header  " data-column="3" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-label="Category: No sort applied, activate to apply an ascending sort" style="user-select: none;"><span>Date d'ajout</span>
       <th scope="col" class="header tablesorter-header " data-column="2" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-sort="none" aria-label="Date: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner"><span>Etat </span></div></th>
 
-      <th scope="col" class="header tablesorter-header  " data-column="4" role="columnheader" aria-disabled="true" unselectable="on" aria-sort="none" aria-label="Actions: No sort applied, sorting is disabled" style="user-select: none;"><div class="tablesorter-header-inner"><span>Actions</span></div></th>
+      <th *ngIf="isCollaborateur()" scope="col" class="header tablesorter-header  " data-column="4" role="columnheader" aria-disabled="true" unselectable="on" aria-sort="none" aria-label="Actions: No sort applied, sorting is disabled" style="user-select: none;"><div class="tablesorter-header-inner"><span>Actions</span></div></th>
     </tr>
     </thead>
     <tbody aria-live="polite" aria-relevant="all">
     <tbody aria-live="polite" aria-relevant="all">
 
-    <tr role="row">
-      <td class="align-middle"><strong>Ihebeddine Ben Fraj</strong></td>
-      <td class="align-middle"><strong>ihebeddine.benfraj@esprit.tn</strong></td>
+
+    <tr role="row" *ngFor="let cv of cvs">
+      <td class="align-middle" ><a   (click)="openDetails(content1,cv.id)" ngbPopover="Cliquez pour voir plus de détails" triggers="mouseenter:mouseleave"><strong>{{cv.nomPrenom}}</strong></a></td>
 
 
-      <td class="align-middle" >
-        <select class="custom-select" >
-          <option value="AF" selected value>Afficher</option>
-          <option value="AD" disabled>Java</option>
-          <option value="AZ"disabled>JEE</option>
 
 
-        </select></td>
-      <td class="align-middle" >
-        <select class="custom-select   " >
-          <option value="AF"  selected value>Afficher</option>
-          <option value="AD" disabled>Anglais</option>
-          <option value="AZ"disabled>Francais</option>
-
-
-        </select></td>
-      <td class="align-middle">09/06/2014 09:00</td>
+      <td class="align-middle">{{cv.dateAjout| date: 'dd/MM/yyyy'}}</td>
       <td>
         <!-- Example single danger button -->
-        <span class="badge badge-lg badge-danger">En cours</span>
-      </td>
-      <td>
+        <span *ngIf="cv.etat==='En cours'" class="badge badge-lg badge-primary">{{cv.etat}}</span>
+        <span *ngIf="cv.etat==='Recruté'" class="badge badge-lg badge-success">{{cv.etat}}</span>
+        <span *ngIf="cv.etat==='Archivé'" class="badge badge-lg badge-danger">{{cv.etat}}</span>
 
-        <a class="icon icon-Archive" routerLink="cvs"  (click)="open(content)"></a>
+      </td>
+      <td *ngIf="isCollaborateur()">
+        <a class="icon icon-Pencil" (click)="showModif()"   ngbPopover="Cliquez pour modifier manuellement ce CV" triggers="mouseenter:mouseleave"></a>
+
+        <a class="icon icon-Archive"   (click)="open(content)" ngbPopover="Cliquez pour archiver ce CV " triggers="mouseenter:mouseleave"></a>
+
       </td>
 
     </tr>
     </tbody>
   </table>
 </div>
+</div>
 
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-content border">
+
+    <div class="modal-body" >
+      <h4 class="col-12 modal-title text-center" id="modal-basic-title1">{{OneCv.nomPrenom}}</h4>
+      <br>
+      <p><strong>Email : </strong>{{OneCv.email}} </p>
+      <p><strong>Numero Tel : </strong>{{OneCv.numTel}} </p>
+   <p ><strong>Skills  : </strong>        <span *ngFor="let skill of OneCv.skills ">{{skill}} , </span></p>
+      <p >  <strong>Langues  : </strong>        <span *ngFor="let langue of OneCv.langues ">{{langue}} , </span>
+      </p>
+      <p><strong>Année d'experience : </strong>5 ans</p>
+
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
 
 <!--ici le modal Suppression -->
 <ng-template #content let-modal>
@@ -82,3 +100,37 @@
     <button type="button" class="btn btn-danger" data-ng-click="deleteUser(user._id)">Supprimer</button>
   </div>
 </ng-template>
+
+<!--Modifier une offre d'emploi-->
+
+<div *ngIf="div2">
+  <h2>Modifier une offre</h2>
+  <div class="row">
+    <div class="col-sm-8">
+      <form role="form" >
+        <div class="form-group">
+          <label for="inputNamemodif" class="is-required">Nom et Prénom</label>
+          <input type="text" class="form-control" id="inputNamemodif" required="">
+        </div>
+        <div class="form-group">
+          <label for="inputEmail" class="is-required">Emails</label>
+          <input type="email" class="form-control" id="inputEmail" required="">
+        </div>
+
+        <div class="form-group has-warning">
+          <label for="inputexperienceModif" class="is-required">Année d'experience</label>
+          <input type="number" class="form-control" id="inputexperienceModif"  required="">
+        </div>
+<br><br>
+
+<div class="btn-toolbar  ">
+        <button type="submit" name="cancel" (click)="showAjout()" class="btn btn-secondary mx-1">Annuler</button>
+
+            <button type="submit" name="submit" class="btn btn-primary ">Modifier</button>
+</div>
+
+      </form>
+    </div>
+  </div></div>
+
+

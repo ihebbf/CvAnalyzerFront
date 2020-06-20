@@ -1,5 +1,5 @@
 <div class="uploadfilecontainer"   (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
-  <input hidden type="file"  #fileInput (change)="uploadFile($event.target.files)">
+  <input hidden type="file"  #fileInput (change)="uploadFile($event.target.files)"  multiple>
 </div>
 <div  class="files-list" *ngFor="let file of files;let i=index">
   <p>{{ file.name}}</p>
@@ -8,7 +8,17 @@
   </button>
 </div>
 <div class="importButton">
-  <button  type="button" class="btn btn-primary" (click)="Importer() ">Import</button>
+  <div *ngIf="verifExtension" class="alert alert-danger" role="alert">
+    Veuillez importer un fichier pdf ...  </div>
+  <button  type="button" class="btn btn-primary" (click)="Importer() ">Importer</button>
 
 </div>
+<br>
+<div *ngIf="Loading" class="importButton">
+    <strong>Cette opération peut prendre quelques minutes ...</strong>
+    <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+
+</div>
+
+
 
