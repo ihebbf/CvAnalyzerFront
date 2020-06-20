@@ -46,9 +46,9 @@
 
       </td>
       <td *ngIf="isCollaborateur()">
-        <a class="icon icon-Pencil" (click)="showModif()"   ngbPopover="Cliquez pour modifier manuellement ce CV" triggers="mouseenter:mouseleave"></a>
+        <a class="icon icon-Pencil" (click)="showModif(cv.id)"   ngbPopover="Cliquez pour modifier manuellement ce CV" triggers="mouseenter:mouseleave"></a>
 
-        <a class="icon icon-Archive"   (click)="open(content)" ngbPopover="Cliquez pour archiver ce CV " triggers="mouseenter:mouseleave"></a>
+        <a class="icon icon-Archive"   (click)="open(content,cv.id)" ngbPopover="Cliquez pour archiver ce CV " triggers="mouseenter:mouseleave"></a>
 
       </td>
 
@@ -74,7 +74,8 @@
    <p ><strong>Skills  : </strong>        <span *ngFor="let skill of OneCv.skills ">{{skill}} , </span></p>
       <p >  <strong>Langues  : </strong>        <span *ngFor="let langue of OneCv.langues ">{{langue}} , </span>
       </p>
-      <p><strong>Année d'experience : </strong>5 ans</p>
+      <p *ngIf="OneCv.anneeExperience !=null"><strong>Année d'experience : </strong>{{OneCv.anneeExperience}} ans</p>
+      <p *ngIf="OneCv.anneeExperience ===null"><strong>Année d'experience : </strong></p>
 
     </div>
   </div>
@@ -97,7 +98,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.close('Close click')">Annuler</button>
-    <button type="button" class="btn btn-danger" data-ng-click="deleteUser(user._id)">Supprimer</button>
+    <button type="button" class="btn btn-danger" (click)="archiverCv()">Supprimer</button>
   </div>
 </ng-template>
 
@@ -110,23 +111,35 @@
       <form role="form" >
         <div class="form-group">
           <label for="inputNamemodif" class="is-required">Nom et Prénom</label>
-          <input type="text" class="form-control" id="inputNamemodif" required="">
+          <input type="text" class="form-control" id="inputNamemodif" required="" name="nomPrenom" [(ngModel)]="this.modifCV.nomPrenom" value="{{this.modifCV.nomPrenom}}">
         </div>
         <div class="form-group">
           <label for="inputEmail" class="is-required">Emails</label>
-          <input type="email" class="form-control" id="inputEmail" required="">
+          <input type="email" class="form-control" id="inputEmail" required="" name="email" [(ngModel)]="this.modifCV.email" value="{{this.modifCV.email}}">
         </div>
 
         <div class="form-group has-warning">
           <label for="inputexperienceModif" class="is-required">Année d'experience</label>
-          <input type="number" class="form-control" id="inputexperienceModif"  required="">
+          <input type="number" class="form-control" id="inputexperienceModif"  required="" name="anneeExperience" [(ngModel)]="this.modifCV.anneeExperience" value="{{this.modifCV.anneeExperience}}">
         </div>
+
+        <div class="form-group ">
+          <label for="etat">Etat:</label>
+
+          <select class="custom-select" name="etat" id="etat" [(ngModel)]="this.modifCV.etat"
+          >
+            <option value="En cours">En cours</option>
+            <option value="Recruté">Recruté</option>
+          </select>
+        </div>
+
+
 <br><br>
 
 <div class="btn-toolbar  ">
         <button type="submit" name="cancel" (click)="showAjout()" class="btn btn-secondary mx-1">Annuler</button>
 
-            <button type="submit" name="submit" class="btn btn-primary ">Modifier</button>
+            <button type="submit" name="submit" class="btn btn-primary " (click)="update(this.modifCV.id)">Modifier</button>
 </div>
 
       </form>

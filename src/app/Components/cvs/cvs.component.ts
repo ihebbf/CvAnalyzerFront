@@ -5,6 +5,8 @@ import {FormBuilder} from '@angular/forms';
 import {CvService} from '../../Services/cv.service';
 import {User} from '../../Models/User';
 import {Cv} from '../../Models/Cv';
+import {dateComparator} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-cvs',
@@ -18,6 +20,7 @@ export class CvsComponent implements OnInit{
   div2: boolean;
    cvs: Array<Cv> = []
   OneCv: Cv
+  modifCV:Cv
 
   constructor(private modalService: NgbModal, private router: Router, private fb: FormBuilder,private cvService:CvService) {
 
@@ -26,6 +29,7 @@ export class CvsComponent implements OnInit{
   ngOnInit(): void{
     this.cvs=[]
     this.OneCv=new Cv()
+    this.modifCV=new Cv()
 
     this.cvService.getAllCv().subscribe(data=>{
 
@@ -44,11 +48,27 @@ export class CvsComponent implements OnInit{
 
   }
 
-  showModif() {
+  showModif(id) {
+
 
     this.div1 = false;
     this.div2 = true;
+    this.cvService.getCv(id).subscribe(data=>{
 
+      this.modifCV=data
+
+
+
+
+
+    },error => {
+
+
+
+
+
+
+    })
   }
 
   showAjout() {
@@ -79,11 +99,22 @@ export class CvsComponent implements OnInit{
 
   }
 
-  public open(content) {
+  public open(content,id) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+
+    this.cvService.getCv(id).subscribe(data=>{
+
+      this.OneCv=data
+
+
+    }, err => {
+
+
+
     });
 
 
@@ -109,5 +140,34 @@ export class CvsComponent implements OnInit{
 
 
   }
+
+
+  update(id) {
+
+
+      this.cvService.editCv(this.modifCV, id).subscribe((data) => {
+window.location.reload()
+
+        },
+        (err: HttpErrorResponse) => {
+
+
+        });
+    }
+
+
+  archiverCv() {
+
+    this.OneCv.etat="Archivé"
+    this.cvService.editCv(this.OneCv, this.OneCv.id).subscribe((data) => {
+        window.location.reload()
+
+      },
+      (err: HttpErrorResponse) => {
+
+
+      });
+  }
+
 }
 

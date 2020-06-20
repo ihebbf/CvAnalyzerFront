@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
 import {AuthentificationService} from './Services/authentification.service';
+import {CvService} from './Services/cv.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit {
   title = 'CvAnalyserFront1';
   role:string;
   prenom:string;
-  constructor(public router: Router,private authService: AuthentificationService) {
+  constructor(public router: Router,private authService: AuthentificationService,private  cvService:CvService) {
 
     // subscribe to the router events. Store the subscription so we can
     // unsubscribe later.

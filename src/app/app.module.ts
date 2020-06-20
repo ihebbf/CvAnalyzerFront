@@ -21,6 +21,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AuthGuard} from './Helpers/auth.guard.ts';
 import { ProfilComponent } from './Components/profil/profil.component';
 import { ErrorComponent } from './error/error.component';
+import {CvService} from './Services/cv.service';
 
 @NgModule({
   declarations: [
