@@ -6,7 +6,8 @@
 <h2>
   Importer un CV</h2>
 <app-upload-file></app-upload-file>
-<br>
+
+<notifier-container></notifier-container>
 <br>
 
 
@@ -23,6 +24,7 @@
 
       <th scope="col" class="header  " data-column="3" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-label="Category: No sort applied, activate to apply an ascending sort" style="user-select: none;"><span>Date d'ajout</span>
       <th scope="col" class="header tablesorter-header " data-column="2" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-sort="none" aria-label="Date: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner"><span>Etat </span></div></th>
+      <th scope="col" class="header tablesorter-header " data-column="2" tabindex="0" role="columnheader" aria-disabled="true" aria-controls="news-table"  aria-sort="none" aria-label="Date: No sort applied, activate to apply an ascending sort" style="user-select: none;"><div class="tablesorter-header-inner"><span>Domaine </span></div></th>
 
       <th *ngIf="isCollaborateur()" scope="col" class="header tablesorter-header  " data-column="4" role="columnheader" aria-disabled="true" unselectable="on" aria-sort="none" aria-label="Actions: No sort applied, sorting is disabled" style="user-select: none;"><div class="tablesorter-header-inner"><span>Actions</span></div></th>
     </tr>
@@ -43,6 +45,12 @@
         <span *ngIf="cv.etat==='En cours'" class="badge badge-lg badge-primary">{{cv.etat}}</span>
         <span *ngIf="cv.etat==='Recruté'" class="badge badge-lg badge-success">{{cv.etat}}</span>
         <span *ngIf="cv.etat==='Archivé'" class="badge badge-lg badge-danger">{{cv.etat}}</span>
+
+      </td>
+      <td>
+
+        <span  class="badge badge-lg badge-primary">{{cv.domaine}}</span>
+
 
       </td>
       <td *ngIf="isCollaborateur()">

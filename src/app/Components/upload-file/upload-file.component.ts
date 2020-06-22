@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CvService} from '../../Services/cv.service';
 import {CvsComponent} from '../cvs/cvs.component';
+import { NotifierService } from "angular-notifier";
 
 @Component({
   selector: 'app-upload-file',
@@ -11,13 +12,15 @@ import {CvsComponent} from '../cvs/cvs.component';
   styleUrls: ['./upload-file.component.css']
 })
 export class UploadFileComponent  {
-   fd = new FormData();
+  private readonly notifier: NotifierService;
+
+  fd = new FormData();
    Loading: boolean=false;
   @ViewChild('fileInput') fileInput: any;
 
    verifExtension: boolean=false;
-  constructor(private cvService:CvService,private router:Router, private modalService: NgbModal) {
-
+  constructor(notifierService: NotifierService,private cvService:CvService,private router:Router, private modalService: NgbModal) {
+  this.notifier=notifierService
   }
 
 
@@ -53,7 +56,6 @@ this.verifExtension=true;      }
 
 
   Importer() {
-    console.log(this.Loading)
     this.Loading=true;
 
     for(let index = 0; index < this.files.length; index++) {
@@ -72,6 +74,10 @@ this.verifExtension=true;      }
           this.Loading=false;
           this.fileInput.nativeElement.value = '';
 
+          this.notifier.notify("success", "L'extraction des CVs a été effectuée avec succès");
+          this.notifier.notify("success", "La prediction du domaine des cvs a été effectuée avec succès");
+
+
         },
       (err : HttpErrorResponse)=>{
      console.log(err)
@@ -81,6 +87,7 @@ this.verifExtension=true;      }
         this.fileInput.nativeElement.value = '';
 
       });
+
 
 
 

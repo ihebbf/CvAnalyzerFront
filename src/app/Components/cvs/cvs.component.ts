@@ -7,6 +7,7 @@ import {User} from '../../Models/User';
 import {Cv} from '../../Models/Cv';
 import {dateComparator} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools';
 import {HttpErrorResponse} from '@angular/common/http';
+import { NotifierService } from "angular-notifier";
 
 @Component({
   selector: 'app-cvs',
@@ -15,6 +16,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class CvsComponent implements OnInit{
   navigationSubscription
+  private readonly notifier: NotifierService;
   public closeResult: string;
   div1: boolean;
   div2: boolean;
@@ -22,11 +24,13 @@ export class CvsComponent implements OnInit{
   OneCv: Cv
   modifCV:Cv
 
-  constructor(private modalService: NgbModal, private router: Router, private fb: FormBuilder,private cvService:CvService) {
+  constructor(notifierService: NotifierService,private modalService: NgbModal, private router: Router, private fb: FormBuilder,private cvService:CvService) {
+    this.notifier = notifierService;
 
   }
 
   ngOnInit(): void{
+
     this.cvs=[]
     this.OneCv=new Cv()
     this.modifCV=new Cv()
@@ -137,6 +141,8 @@ export class CvsComponent implements OnInit{
   reloadCom(){
 
       this.ngOnInit();
+
+
 
 
   }

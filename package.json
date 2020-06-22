@@ -22,6 +22,7 @@
     "@angular/router": "~9.1.9",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "@syncfusion/ej2-angular-dropdowns": "^18.1.55",
+    "angular-notifier": "^6.0.1",
     "bootstrap": "^4.4.0",
     "chart.js": "^2.9.3",
     "ng-boosted": "^5.2.1",
