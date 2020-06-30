@@ -168,7 +168,7 @@ window.location.reload()
     this.cvService.editCv(this.OneCv, this.OneCv.id).subscribe((data) => {
         window.location.reload()
 
-      },
+  },
       (err: HttpErrorResponse) => {
 
 

@@ -113,7 +113,7 @@
 <!--Modifier une offre d'emploi-->
 
 <div *ngIf="div2">
-  <h2>Modifier une offre</h2>
+  <h2>Modifier un CV</h2>
   <div class="row">
     <div class="col-sm-8">
       <form role="form" >
@@ -132,7 +132,7 @@
         </div>
 
         <div class="form-group ">
-          <label for="etat">Etat:</label>
+          <label for="etat" class="is-required">Etat</label>
 
           <select class="custom-select" name="etat" id="etat" [(ngModel)]="this.modifCV.etat"
           >
