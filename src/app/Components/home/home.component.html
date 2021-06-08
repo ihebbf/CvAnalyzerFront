@@ -1,11 +1,86 @@
+
+
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-5 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Dashboard</h1>
+    <h1 class="h2">Dashboard</h1>
+  </div>
 
+<div class="border-bottom  text-center ">
+<div class="row clearfix justify-content-center align-items-center mb-3 ">
+  <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 ">
+    <div class="info-box bg-blue hover-expand-effect text-center ">
+      <div class="icon">
+        <i class="material-icons">local_offer</i>
+      </div>
+      <div class="content">
+        <div class="text">Offres</div>
+        <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">{{this.allCount[2]}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box bg-green hover-expand-effect text-center ">
+      <div class="icon">
+        <i class="material-icons">note_add</i>
+      </div>
+      <div class="content">
+        <div class="text">CVs</div>
+        <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20">{{this.allCount[0]}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box bg-orange hover-expand-effect text-center ">
+      <div class="icon">
+        <i class="material-icons">person</i>
+      </div>
+      <div class="content ">
+        <div class="text ">Utilisateurs</div>
+        <div class="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20">{{this.allCount[1]}}</div>
+      </div>
+    </div>
+  </div>
 
 </div>
-<div class="card p-4">
-  <h5 class="card-title">Chart avec Chart.js</h5>
-  <canvas baseChart [datasets]="datasets" [labels]="labels" [options]="options" [chartType]="type">
-  </canvas>
 </div>
+<div class="btn-group btn-group-justified mt-2 mb-3">
+  <a  (click)="pieOffre()" [ngClass]="(showPieOffre)?'btn btn-secondary':'btn btn-toolbar'"  >Offres</a>
+  <a  (click)="pieCVs()" [ngClass]="(showPieCVs)?'btn btn-secondary':'btn btn-toolbar'">CVs</a>
+</div>
+<div class="row mb-5">
 
+  <div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 *ngIf="showPieOffre" class="card-title">Offres par mois</h4>
+        <h4 *ngIf="showPieCVs" class="card-title">CVs par mois</h4>
+        <div class="aligner-wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+          <canvas baseChart
+                  [datasets]="datasets"
+                  [data]="OffrePerMounth"
+                  [labels]="labels"
+                  [chartType]="type"
+                  [options]="options"
+
+          ></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 *ngIf="showPieOffre" class="card-title">Etat des offres</h4>
+        <h4 *ngIf="showPieCVs" class="card-title">Etat des CVs</h4>
+        <div class="aligner-wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+
+          <canvas baseChart
+                  [datasets]="datasetOffre"
+                  [data]="doughnutChartData"
+                  [labels]="doughnutChartLabels"
+                  [chartType]="doughnutChartType"
+          ></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+
+      <div class=" pt-5 mt-3 mb-3" >
+
+        <div class="card-header">
+          <h4 class="mb-0">Modifier Votre profil</h4>
+        </div>
+        <div class="card-body mt-2">
+          <form class="form" role="form" autocomplete="off">
+            <div class="form-group row" *ngIf="isEditError">
+              <label class="col-lg-3 col-form-label form-control-label"></label>
+
+              <div class="col-lg-9" >
+                <div class="alert alert-danger" role="alert">Password actuel incorrect</div>
+
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="EmptyField">
+              <label class="col-lg-3 col-form-label form-control-label"></label>
+
+              <div class="col-lg-9" >
+                <div class="alert alert-danger" role="alert">Veuillez remplir tous les champs</div>
+
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">Nom</label>
+              <div class="col-lg-9">
+                <input class="form-control" type="text" name="nom" [(ngModel)]="this.user.nom" value="{{this.user.nom}}">
+              </div>
+            </div>
+
+
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">Prénom</label>
+              <div class="col-lg-9">
+                <input class="form-control" type="text" [(ngModel)]="this.user.prenom" name="prenom" value="{{this.user.prenom}}"  >
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">Date de naissance</label>
+              <div class="col-lg-9">
+                <input class="form-control" type="date"  name="dateNaissance" [(ngModel)]="this.user.dateNaissance" value="{{this.user.dateNaissance}}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">Email</label>
+              <div class="col-lg-9">
+                <input class="form-control"  disabled type="email" name="email" [(ngModel)]="this.user.email" value="{{this.user.email}}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">Mot de passe actuel</label>
+              <div class="col-lg-9">
+                <input class="form-control" type="password" name="currentPassword" value="" [(ngModel)]="this.user.currentPassword" >
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">Nouveau mot de passe</label>
+              <div class="col-lg-9">
+                <input class="form-control" type="password" [(ngModel)]="this.user.password" name="password" value="" >
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label"></label>
+              <div class="col-lg-9">
+                <div class="btn-toolbar ">
+                <button type="submit" name="cancel" (click)="annuler()"  class="btn btn-secondary mx-1">Annuler</button>
+
+                <button type="submit" name="submit" class="btn btn-primary " (click)="this.update(this.user.id)">Modifier</button>
+              </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- /form user info -->
